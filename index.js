@@ -1,10 +1,10 @@
 import { applyMiddleware, createStore } from "redux";
-import logger from 'redux-logger'
+import logger from "redux-logger";
 
-// action name constants 
-const increment = 'increment'
-const decrement = 'decrement'
-const incrementByAmount = 'incrementByAmount'
+// action name constants
+const increment = "increment";
+const decrement = "decrement";
+const incrementByAmount = "incrementByAmount";
 
 // Store
 // Create a Redux store holding the state of your app.
@@ -19,16 +19,16 @@ function reducer(state = { amount: 1 }, action) {
   // immutability
   // always create a state copy
   // match action type name
-  if (action.type === increment) {
-    return { amount: state.amount + 1 };
+  switch (action.type) {
+    case increment:
+      return { amount: state.amount + 1 };
+    case decrement:
+      return { amount: state.amount - 1 };
+    case incrementByAmount:
+      return { amount: state.amount + action.payload };
+    default:
+      return state;
   }
-  if (action.type === decrement) {
-    return { amount: state.amount - 1 };
-  }
-  if (action.type === incrementByAmount) {
-    return { amount: state.amount + action.payload };
-  }
-  return state;
 }
 
 // Global State
@@ -40,20 +40,18 @@ function reducer(state = { amount: 1 }, action) {
 // let history = [];
 // store.subscribe(() => history.push(store.getState()), console.log(history));
 
-
-
 // Action creators
 // another way to create a action
 function inc() {
-  return { type: increment }
+  return { type: increment };
 }
 
 function dec() {
-  return { type: increment }
+  return { type: increment };
 }
 
 function incByAmt(value) {
-  return { type: incrementByAmount, payload:value }
+  return { type: incrementByAmount, payload: value };
 }
 
 // Action
@@ -66,4 +64,3 @@ setInterval(() => {
   // store.dispatch(dec());
   store.dispatch(incByAmt(5));
 }, 2000);
-
