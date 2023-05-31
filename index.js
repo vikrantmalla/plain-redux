@@ -17,6 +17,12 @@ function reducer(state = { amount: 1 }, action) {
   if (action.type === "increment") {
     return { amount: state.amount + 1 };
   }
+  if (action.type === "decrement") {
+    return { amount: state.amount - 1 };
+  }
+  if (action.type === "incrementByAmount") {
+    return { amount: state.amount + action.payload };
+  }
   return state;
 }
 
@@ -29,11 +35,30 @@ function reducer(state = { amount: 1 }, action) {
 // let history = [];
 // store.subscribe(() => history.push(store.getState()), console.log(history));
 
+
+
+// Action creators
+// another way to create a action
+function increment() {
+  return { type: "increment" }
+}
+
+function decrement() {
+  return { type: "increment" }
+}
+
+function incrementByAmount(value) {
+  return { type: "incrementByAmount", payload:value }
+}
+
 // Action
 // after creating dispatch add to reducer function
 // store.dispatch({ type: 'increment' })
 
 // every 2 second this function will trigger
 setInterval(() => {
-  store.dispatch({ type: "increment" });
+  store.dispatch(increment());
+  store.dispatch(decrement());
+  store.dispatch(incrementByAmount(5));
 }, 2000);
+
