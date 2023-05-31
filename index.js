@@ -1,6 +1,11 @@
 import { applyMiddleware, createStore } from "redux";
 import logger from 'redux-logger'
 
+// action name constants 
+const increment = 'increment'
+const decrement = 'decrement'
+const incrementByAmount = 'incrementByAmount'
+
 // Store
 // Create a Redux store holding the state of your app.
 // Its API is { subscribe, dispatch, getState }.
@@ -14,13 +19,13 @@ function reducer(state = { amount: 1 }, action) {
   // immutability
   // always create a state copy
   // match action type name
-  if (action.type === "increment") {
+  if (action.type === increment) {
     return { amount: state.amount + 1 };
   }
-  if (action.type === "decrement") {
+  if (action.type === decrement) {
     return { amount: state.amount - 1 };
   }
-  if (action.type === "incrementByAmount") {
+  if (action.type === incrementByAmount) {
     return { amount: state.amount + action.payload };
   }
   return state;
@@ -39,16 +44,16 @@ function reducer(state = { amount: 1 }, action) {
 
 // Action creators
 // another way to create a action
-function increment() {
-  return { type: "increment" }
+function inc() {
+  return { type: increment }
 }
 
-function decrement() {
-  return { type: "increment" }
+function dec() {
+  return { type: increment }
 }
 
-function incrementByAmount(value) {
-  return { type: "incrementByAmount", payload:value }
+function incByAmt(value) {
+  return { type: incrementByAmount, payload:value }
 }
 
 // Action
@@ -57,8 +62,8 @@ function incrementByAmount(value) {
 
 // every 2 second this function will trigger
 setInterval(() => {
-  store.dispatch(increment());
-  store.dispatch(decrement());
-  store.dispatch(incrementByAmount(5));
+  // store.dispatch(inc());
+  // store.dispatch(dec());
+  store.dispatch(incByAmt(5));
 }, 2000);
 
